@@ -1,6 +1,0 @@
-public void deleteElement(Object values,String type){
-    DefaultGraphTraversal dgt=searchElement(values,type);
-    if(dgt.hasNext()){
-        dgt.next().remove();
-    };
-};
