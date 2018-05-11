@@ -4,7 +4,6 @@ import com.liuran.supports.titan.repository.annotation.*;
 import com.liuran.supports.titan.repository.model.TitanModel;
 import com.liuran.supports.titan.repository.script.TitanScriptModel;
 import com.liuran.supports.titan.repository.script.TitanScriptModelEdge;
-import org.weblr.supports.titan.repository.annotation.*;
 import com.liuran.supports.titan.repository.script.TitanScriptModelVertex;
 
 import java.lang.annotation.Annotation;
