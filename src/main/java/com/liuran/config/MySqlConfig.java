@@ -50,7 +50,7 @@ public class MySqlConfig {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        factoryBean.setPackagesToScan("com.liuran.domain");
+        factoryBean.setPackagesToScan("com.liuran");
         return factoryBean;
     }
 
