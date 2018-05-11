@@ -1,7 +1,7 @@
-package com.liuran.controller;
+package com.liuran.demo.controller;
 
-import com.liuran.service.TestService;
-import com.liuran.domain.TestDemo;
+import com.liuran.demo.service.TestService;
+import com.liuran.demo.domain.TestDemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.liuran.domain;
+package com.liuran.demo.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -1,6 +1,6 @@
-package com.liuran.repository;
+package com.liuran.demo.repository;
 
-import com.liuran.domain.TestDemo;
+import com.liuran.demo.domain.TestDemo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
-package com.liuran.service;
+package com.liuran.demo.service;
 
-import com.liuran.domain.TestDemo;
-import com.liuran.repository.TestDemoRepository;
+import com.liuran.demo.domain.TestDemo;
+import com.liuran.demo.repository.TestDemoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
