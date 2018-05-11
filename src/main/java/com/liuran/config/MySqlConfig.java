@@ -23,7 +23,7 @@ import java.util.Map;
 @Configuration
 @EnableWebMvc
 @EnableJpaRepositories(
-        basePackages = {"com.demo.order"},
+        basePackages = {"com.liuran"},
         transactionManagerRef = "transactionManager"
 )
 public class MySqlConfig {
@@ -50,7 +50,7 @@ public class MySqlConfig {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        factoryBean.setPackagesToScan("com.demo.order.domain");
+        factoryBean.setPackagesToScan("com.liuran.domain");
         return factoryBean;
     }
 
