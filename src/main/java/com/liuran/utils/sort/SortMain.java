@@ -2,24 +2,23 @@ package com.liuran.utils.sort;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SortMain {
     public static void main(String[] args) {
-        Sort sort = new QuickSort(false);
+        Sort sort = new BubbleSort(false);
         List<Integer> collection = new ArrayList<>();
-        collection.add(4);
-        collection.add(2);
-        collection.add(1);
-        collection.add(5);
-        collection.add(4);
-        collection.add(3);
-        collection.add(7);
-        collection.add(6);
-        collection.add(8);
-        collection.add(4);
+        Random random = new Random();
+        for (int i=0 ;i < 20000 ;i++){
+            int value = random.nextInt(50000);
+            collection.add(value);
+        }
 
-        for (Integer value : sort.sort(collection)){
-            System.out.println(value);
+        long start = System.currentTimeMillis();
+        List<Integer> result =  sort.sort(collection);
+        System.out.println("耗时:" + (System.currentTimeMillis() - start));
+        for (Integer value : result){
+            System.out.print(value + ",");
         }
     }
 }

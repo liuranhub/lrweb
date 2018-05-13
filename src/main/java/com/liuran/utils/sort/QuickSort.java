@@ -37,6 +37,7 @@ public class QuickSort extends AbstractSort{
         }
 
         swap(array, pivot, i );
+
         if (left < right){
             quickSort(array, left, i - 1);
             quickSort(array, i + 1 , right);
