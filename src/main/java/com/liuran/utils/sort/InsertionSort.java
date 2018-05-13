@@ -19,7 +19,7 @@ public class InsertionSort extends AbstractSort{
                 if (preIndex < 0){
                     break;
                 }
-                if (fistGreaterThanSecond(current, array[preIndex])){
+                if (fistGtSecond(current, array[preIndex])){
                     break;
                 }
                 array[preIndex + 1] = array[preIndex];

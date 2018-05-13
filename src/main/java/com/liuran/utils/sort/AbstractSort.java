@@ -14,13 +14,13 @@ public abstract class AbstractSort implements Sort{
         this.invert = invert;
     }
 
-    protected static void changePosition(Comparable[] array, int fist, int second){
+    protected static void swap(Comparable[] array, int fist, int second){
         Comparable temp = array[fist];
         array[fist] = array[second];
         array[second] = temp;
     }
 
-    protected static boolean fistGreaterThanSecond(Comparable fist, Comparable second){
+    protected static boolean fistGtSecond(Comparable fist, Comparable second){
         if (fist.compareTo(second) > 0){
             return true;
         }
@@ -29,7 +29,7 @@ public abstract class AbstractSort implements Sort{
     }
 
 
-    protected static boolean fistGreaterEqualThanSecond(Comparable fist, Comparable second){
+    protected static boolean fistGteSecond(Comparable fist, Comparable second){
         if (fist.compareTo(second) >= 0){
             return true;
         }
@@ -37,7 +37,7 @@ public abstract class AbstractSort implements Sort{
         return false;
     }
 
-    protected static boolean fistLessEqualThanSecond(Comparable fist, Comparable second){
+    protected static boolean fistLteSecond(Comparable fist, Comparable second){
         if (fist.compareTo(second) <= 0){
             return true;
         }

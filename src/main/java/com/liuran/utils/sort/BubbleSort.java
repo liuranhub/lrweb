@@ -15,8 +15,8 @@ public class BubbleSort extends AbstractSort{
             for (int j = 0; j < list.length - i -1 ;j ++){
                 Comparable fist = list[j];
                 Comparable second = list[j + 1];
-                if (fistGreaterThanSecond(fist, second)){
-                    changePosition(list, j, j + 1);
+                if (fistGtSecond(fist, second)){
+                    swap(list, j, j + 1);
                 }
             }
         }

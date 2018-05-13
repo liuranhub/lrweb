@@ -23,25 +23,23 @@ public class QuickSort extends AbstractSort{
         int pivot = left;
         int i = left;
         int j = right;
-        while (true){
-            if (i == j){
-                break;
-            }
-
+        while (i != j){
             //从右向左找出第一个比基准数小的
-            while (fistGreaterEqualThanSecond(array[j], array[pivot]) && i < j){
+            while (fistGteSecond(array[j], array[pivot]) && i < j){
                 j --;
             }
 
             //从左往右找出第一个比基准数大的
-            while (fistLessEqualThanSecond(array[i], array[pivot]) && i < j){
+            while (fistLteSecond(array[i], array[pivot]) && i < j){
                 i ++;
             }
-            changePosition(array, i, j);
+            swap(array, i, j);
         }
 
-        changePosition(array, pivot, i );
-        quickSort(array, left, i - 1);
-        quickSort(array, i + 1 , right);
+        swap(array, pivot, i );
+        if (left < right){
+            quickSort(array, left, i - 1);
+            quickSort(array, i + 1 , right);
+        }
     }
 }

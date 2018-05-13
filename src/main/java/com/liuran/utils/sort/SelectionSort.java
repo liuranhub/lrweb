@@ -15,13 +15,13 @@ public class SelectionSort extends AbstractSort{
         for (int i = 0; i < array.length ; i ++){
             int temp = i;
             for (int j = i + 1; j < array.length; j ++){
-                if (fistGreaterThanSecond(array[temp], array[j])){
+                if (fistGtSecond(array[temp], array[j])){
                     temp = j;
                 }
             }
 
             if (temp != i){
-                changePosition(array, i, temp);
+                swap(array, i, temp);
             }
         }
 
