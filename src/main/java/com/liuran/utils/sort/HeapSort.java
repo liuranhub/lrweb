@@ -2,7 +2,7 @@ package com.liuran.utils.sort;
 /**
  * 1、堆编码规则(逻辑上):从上到下,从左到右,按照数组顺序建立一个完全二叉树
  * 2、大顶堆定义:Ai > A(i+1) 且 Ai > A(i+2),即堆的父节点大于两个子节点(二叉树的部分性质)
- * 3、第n个非叶子节点计算公式:node = array.length/2 - n;
+ * 3、第n个非叶子节点计算公式:node = array.length/2 - n (非叶子节点前面的节点都是非叶子节点);
  * 4、调整规程:
  *    A、建立初始堆,从最后一个非叶子节点开始,以该节点开始作为子树,调整子树为大顶堆(或小顶堆)。循环array.length/2 - 1次,直到结束。
  *    B、在初始堆的的基础之上进行调整
@@ -16,7 +16,7 @@ package com.liuran.utils.sort;
 public class HeapSort extends AbstractSort{
 
     public HeapSort(){
-
+        super();
     }
 
     public HeapSort(boolean invert){
@@ -26,7 +26,7 @@ public class HeapSort extends AbstractSort{
     @Override
     public Comparable[] sort(Comparable[] array) {
         /*
-        * i = array.length / 2 - 1,找到最后一个非叶子节点,并从该非叶子节点遍历后面所有非叶子节点
+        * i = array.length / 2 - 1,找到最后一个非叶子节点,并从该非叶子节点起遍历所有的非叶子节点,并进行堆调整
         * */
         for (int i = array.length / 2 -1; i >= 0; i --){
             //从当前非叶子节点开始,从上至下调整堆
