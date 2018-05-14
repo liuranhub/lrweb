@@ -1,9 +1,16 @@
 package com.liuran.utils.sort;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sun.rmi.runtime.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractSort implements Sort{
+    private static final Logger LOG = LoggerFactory
+            .getLogger(AbstractSort.class);
+
     protected boolean invert = false;
 
     public AbstractSort(){
@@ -50,7 +57,12 @@ public abstract class AbstractSort implements Sort{
             return list;
         }
 
-        Comparable[] result = sort(toArray(list));
+        Comparable[] array = toArray(list);
+        long start = System.currentTimeMillis();
+        Comparable[] result = sort(array);
+        String className = this.getClass().getName();
+        LOG.info(className.substring(className.lastIndexOf(".") + 1) + "耗时:" +
+                (System.currentTimeMillis() - start));
 
         List<T> resultList = new ArrayList<>();
         if (invert){

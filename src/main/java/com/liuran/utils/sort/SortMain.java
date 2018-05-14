@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class SortMain {
     public static void main(String[] args) {
-        Sort sort = new BubbleSort(false);
+        Sort sort = new HeapSort(false);
         List<Integer> collection = new ArrayList<>();
         Random random = new Random();
         for (int i=0 ;i < 20000 ;i++){
