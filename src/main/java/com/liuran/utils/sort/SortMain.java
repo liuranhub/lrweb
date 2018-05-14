@@ -9,7 +9,7 @@ public class SortMain {
         Sort sort = new HeapSort(false);
         List<Integer> collection = new ArrayList<>();
         Random random = new Random();
-        for (int i=0 ;i < 20000 ;i++){
+        for (int i=0 ;i < 1 ;i++){
             int value = random.nextInt(50000);
             collection.add(value);
         }
