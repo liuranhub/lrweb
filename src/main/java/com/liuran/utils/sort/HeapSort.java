@@ -48,11 +48,11 @@ public class HeapSort extends AbstractSort{
     public void adjustHeap(Comparable[] array, int node, int length){
         //父节点
         int parent = node;
-        //parent的子节点,每次循环默认子节点是左子节点(childMax < length保证左子节点一定存在,否则循环自动结束)
+        //parent较大的子节点,每次循环默认子节点是左子节点(childMax < length保证左子节点一定存在,否则循环自动结束)
         int childMax;
         for (childMax = parent * 2 + 1 ;childMax < length; childMax = parent * 2 +1){
-            //k parent的叶子节点,
-            //判断是否有右节点,如果存在右节点,且右节点大于左节点，把childMax指向右节点,否则childMax仍然指向左节点
+            //childMax parent较大的子节点,
+            //判断是否有右子节点,如果存在右子节点,且右子节点大于左子节点，把childMax指向右子节点,否则childMax仍然指向左子节点
             if (childMax + 1 < length){
                 Comparable leftChild = array[childMax];
                 Comparable rightChild  = array[childMax + 1];
@@ -61,7 +61,7 @@ public class HeapSort extends AbstractSort{
                 }
             }
 
-            //判断最大的子节点(k可能是左节点也可能是右节点)和当前节点是否需要进行交换
+            //判断最大的子节点(k可能是左子节点也可能是右子节点)是否需要和当前节点进行交换
             if (fistGtSecond(array[childMax], parent)){
                 swap(array, parent, childMax);
                 //更新当前parent
