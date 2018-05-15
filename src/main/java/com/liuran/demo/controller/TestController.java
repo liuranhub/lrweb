@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/demo/test")
-public class TestController {
+public class
+TestController {
 
     @Autowired
     private TestService service;

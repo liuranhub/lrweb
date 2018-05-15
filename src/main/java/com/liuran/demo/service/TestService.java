@@ -5,6 +5,7 @@ import com.liuran.demo.repository.TestDemoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -15,6 +16,9 @@ public class TestService {
 
     public TestDemo testService(TestDemo demo){
         demo.setId(UUID.randomUUID().toString());
+
+        demo.setCreateTime(System.currentTimeMillis());
+        demo.setUpdateTime(System.currentTimeMillis());
 
         return repository.save(demo);
     }

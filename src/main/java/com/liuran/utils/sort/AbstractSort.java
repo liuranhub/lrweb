@@ -27,6 +27,7 @@ public abstract class AbstractSort implements Sort{
         array[second] = temp;
     }
 
+    @SuppressWarnings("unchecked")
     protected static boolean fistGtSecond(Comparable fist, Comparable second){
         if (fist.compareTo(second) > 0){
             return true;
@@ -35,7 +36,7 @@ public abstract class AbstractSort implements Sort{
         return false;
     }
 
-
+    @SuppressWarnings("unchecked")
     protected static boolean fistGteSecond(Comparable fist, Comparable second){
         if (fist.compareTo(second) >= 0){
             return true;
@@ -44,6 +45,7 @@ public abstract class AbstractSort implements Sort{
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     protected static boolean fistLteSecond(Comparable fist, Comparable second){
         if (fist.compareTo(second) <= 0){
             return true;
@@ -52,6 +54,7 @@ public abstract class AbstractSort implements Sort{
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends Comparable<? super T>> List<T> sort(List<T> list) {
         if (list == null || list.size() <= 1){
             return list;
