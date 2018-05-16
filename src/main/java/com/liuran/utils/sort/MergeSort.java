@@ -31,7 +31,7 @@ public class MergeSort extends AbstractSort{
      * @param right 右子数组其实位置
      * @param temp 排序缓存数组(用着合并两个数组缓存用),缓存数组长度等于排序数组长度
      * */
-    public void mergerSort(Comparable[] array, int left ,int right, Comparable[] temp){
+    private void mergerSort(Comparable[] array, int left ,int right, Comparable[] temp){
         if (left >= right){
             return;
         }
@@ -51,7 +51,7 @@ public class MergeSort extends AbstractSort{
      * @param right 右子数组结束位置(包含right节点)
      * @param mid 两个数组中间分隔位置(mid节点归左子树)
      * */
-    public void mergeArray(Comparable[] array, int left, int mid, int right, Comparable[] temp){
+    private void mergeArray(Comparable[] array, int left, int mid, int right, Comparable[] temp){
         //左数组index
         int leftIndex = left;
         //右数组index
