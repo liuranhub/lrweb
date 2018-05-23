@@ -35,6 +35,7 @@ public class ExcelLine2018 extends ExcelLine{
     public ExcelLine2018(Cell[] row){
         this.cardId = row[3].getContents();
         this.name = row[4].getContents();
+        this.sex = row[toIndex("F")].getContents();
         this.fyze = DoubleUtils.parseDouble(row[9].getContents());
         this.kbxje = DoubleUtils.parseDouble(row[10].getContents());
         this.tcbx = DoubleUtils.parseDouble(row[11].getContents());
@@ -202,6 +203,7 @@ public class ExcelLine2018 extends ExcelLine{
         List<String> list = new ArrayList<>();
         list.add(cardId);
         list.add(name);
+        list.add(sex);
         list.add("" + fyze);
         list.add("" + kbxje);
         list.add("" + tcbx);

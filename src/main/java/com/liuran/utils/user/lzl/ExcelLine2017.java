@@ -12,6 +12,7 @@ public class ExcelLine2017 extends ExcelLine2018{
     public ExcelLine2017(Cell[] row) {
         this.cardId = row[3].getContents();
         this.name = row[4].getContents();
+        this.sex = row[toIndex("F")].getContents();
         this.fyze = DoubleUtils.parseDouble(row[8].getContents());
         this.kbxje = DoubleUtils.parseDouble(row[9].getContents());
         this.tcbx = DoubleUtils.parseDouble(row[10].getContents());

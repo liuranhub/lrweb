@@ -13,7 +13,7 @@ public class SortMain {
             .getLogger(SortMain.class);
 
     public static void main(String[] args) {
-
+        testAverageTime();
     }
 
     public static void testSystemSortAndMySort(){
@@ -36,7 +36,7 @@ public class SortMain {
         System.out.println("Sort:" + (System.currentTimeMillis() - start2));
     }
 
-    public static void testAverage(){
+    public static void testAverageTime(){
 
         Sort quick = new QuickSort();
         Sort merge = new MergeSort();

@@ -16,6 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.beans.PropertyVetoException;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +27,7 @@ import java.util.Map;
         basePackages = {"com.liuran"},
         transactionManagerRef = "transactionManager"
 )
+@Transactional
 public class MySqlConfig {
     @Bean
     public DataSource dataSource() {

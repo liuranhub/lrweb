@@ -14,7 +14,10 @@ import java.io.*;
 import java.util.*;
 
 public class ExcelUtil {
-    public static Map<String, List<ExcelLine>> readExcel(String fileName){
+    public static int ONE = 1;
+    public static int TWO = 2;
+    public static int POOR = 3;
+    public static Map<String, List<ExcelLine>> readExcel(String fileName, int type){
         Map<String, List<ExcelLine>> result = new HashMap<>();
         File file = new File(fileName);
         FileInputStream fis = null;
@@ -31,13 +34,33 @@ public class ExcelUtil {
                         continue;
                     }
                     Cell[] rowData = sheet.getRow(i);
-                    if (sheetName.contains("2016")){
-                        lineList.add(new ExcelLine2016(rowData));
-                    } else if (sheetName.contains("2017")){
-                        lineList.add(new ExcelLine2017(rowData));
-                    } else {
-                        lineList.add(new ExcelLine2018(rowData));
+
+                    if (ONE == type){
+                        if (sheetName.contains("2016")){
+                            lineList.add(new ExcelLine2016(rowData));
+                        } else if (sheetName.contains("2017")){
+                            lineList.add(new ExcelLine2017(rowData));
+                        } else if (sheetName.contains("2018")){
+                            lineList.add(new ExcelLine2018(rowData));
+                        } else if (sheetName.contains("2015")){
+                            lineList.add(new ExcelLine2015(rowData));
+                        }
+                    } else if (TWO == type){
+                        if (sheetName.contains("2016")){
+                            lineList.add(new ExcelDbLine2016(rowData));
+                        } else if (sheetName.contains("2017")){
+                            lineList.add(new ExcelDbLine2017(rowData));
+                        } else if (sheetName.contains("2018")){
+                            lineList.add(new ExcelDbLine2018(rowData));
+                        } else if (sheetName.contains("2015")){
+                            lineList.add(new ExcelDbLine2015(rowData));
+                        }
+                    } else if (POOR == type){
+                        if (sheetName.equals("POOR")){
+                            lineList.add(new ExcelPoorLine(rowData));
+                        }
                     }
+
                 }
 
                 result.put(sheetName, lineList);
@@ -64,8 +87,7 @@ public class ExcelUtil {
         }
         return result;
     }
-
-    public static void writeExcel(String fileName, Map<String, List<ExcelLine>> data){
+    public static void writeExcel(String fileName, Map<String, List<List<String>>> data){
 
         File file = new File(fileName);
         WritableWorkbook book = null;
@@ -74,11 +96,16 @@ public class ExcelUtil {
             int page = 0;
             for (String sheetName : data.keySet()){
                 WritableSheet sheet = book.createSheet(sheetName, page);
-                List<ExcelLine> lines = data.get(sheetName);
+                List<List<String>> lines = data.get(sheetName);
                 for (int i =0 ; i < lines.size() ; i ++){
                     int j = 0;
-                    for (Object obj : lines.get(i).getLine()){
-                        sheet.addCell(new Label(j, i, obj.toString()));
+                    for (Object obj : lines.get(i)){
+                        try{
+                            sheet.addCell(new Label(j, i, obj.toString()));
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                         j ++;
                     }
                 }
@@ -90,10 +117,6 @@ public class ExcelUtil {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (RowsExceededException e) {
-            e.printStackTrace();
-        } catch (WriteException e) {
             e.printStackTrace();
         } finally {
             if (book != null){

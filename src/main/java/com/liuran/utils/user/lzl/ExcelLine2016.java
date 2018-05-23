@@ -109,6 +109,7 @@ public class ExcelLine2016 extends ExcelLine{
     public ExcelLine2016(Cell[] row){
         this.cardId = row[2].getContents();
         this.name = row[0].getContents();
+        this.sex = row[toIndex("B")].getContents();
         this.fyze = DoubleUtils.parseDouble(row[8].getContents());
         this.kbxje = DoubleUtils.parseDouble(row[9].getContents());
         this.tcbx = DoubleUtils.parseDouble(row[10].getContents());
@@ -126,6 +127,7 @@ public class ExcelLine2016 extends ExcelLine{
         List<String> list = new ArrayList<>();
         list.add(cardId);
         list.add(name);
+        list.add(sex);
         list.add("" + fyze);
         list.add("" + kbxje);
         list.add("" + tcbx);
