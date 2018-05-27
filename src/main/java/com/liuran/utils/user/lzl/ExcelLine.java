@@ -1,6 +1,6 @@
 package com.liuran.utils.user.lzl;
 
-import com.liuran.utils.ExcelIndexUtils;
+import com.liuran.utils.ExcelUtils;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public abstract class ExcelLine {
 
     abstract List<String> getHeader();
     int toIndex(String line){
-        return ExcelIndexUtils.toIndex(line);
+        return ExcelUtils.toIndex(line);
     }
 
 }
