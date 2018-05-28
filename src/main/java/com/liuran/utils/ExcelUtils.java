@@ -9,9 +9,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExcelUtils {
+    public static ExcelUtils build(){
+        return new ExcelUtils();
+    }
+
     public static int toIndex(String line){
         if (line == null || line.length() < 1){
             return 0;
@@ -30,13 +36,42 @@ public class ExcelUtils {
             if (i == line.length() - 1){
                 int units = line.charAt(line.length() - 1) - 'a';
                 index = index + units;
+            } else {
+                index = index + ((line.charAt(i) - 'a' + 1) * base);
+                base = base / 26;
             }
-
-            index = index + ((line.charAt(i) - 'a' + 1) * base);
-            base = base / 26;
         }
 
         return index;
+    }
+
+    public static String toExcelColumn(int index){
+        String result = null;
+        if (index > 25){
+            int base = 1;
+            while (true){
+                if (base * 26 > index){
+                    break;
+                }
+                base = base * 26;
+            }
+            //商
+            int consult = index / base;
+            //余数
+            int remainder = index % base;
+
+            char consultChar = (char) (consult + 'a' - 1);
+            result = new String(new char[]{consultChar});
+
+            String remainderChar = toExcelColumn(remainder);
+
+            result = result + remainderChar;
+        } else {
+            char c = (char) (index + 'a');
+            result = new String(new char[]{c});
+        }
+
+        return result.toUpperCase();
     }
 
     public Excel read(File file){
@@ -46,10 +81,10 @@ public class ExcelUtils {
         try {
             fis = new FileInputStream(file);
             book = Workbook.getWorkbook(fis);
+            List<Sheet> sheets = new ArrayList<>();
 
             for (jxl.Sheet sheet :book.getSheets()){
-                Sheet mySheet = new Sheet();
-                mySheet.setName(sheet.getName());
+                int maxWidth = 0;
 
                 List<Line> allLine = new ArrayList<>();
                 int length = 0;
@@ -59,10 +94,18 @@ public class ExcelUtils {
                     }
                     Line line = new Line(length, sheet.getRow(i));
                     allLine.add(line);
+                    maxWidth = length > maxWidth ? length : maxWidth;
                 }
 
+                Sheet mySheet = new Sheet(maxWidth);
+
+                mySheet.setName(sheet.getName());
                 mySheet.setAllLine(allLine);
+                sheets.add(mySheet);
             }
+
+            excel.setSheets(sheets);
+            excel.setName(file.getName());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -87,7 +130,25 @@ public class ExcelUtils {
     }
 
     public class Excel{
-        List<Sheet> sheets;
+        private List<Sheet> sheets;
+        private String name;
+
+        public Excel(){
+
+        }
+
+        public Excel(String name, List<Sheet> sheets){
+            this.name = name;
+            this.sheets = sheets;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
 
         public List<Sheet> getSheets() {
             return sheets;
@@ -96,13 +157,42 @@ public class ExcelUtils {
         public void setSheets(List<Sheet> sheets) {
             this.sheets = sheets;
         }
+        public void write(){
+
+        }
     }
 
     public class Sheet{
         private List<Line> allLine;
         private List<Line> data;
         private Line title;
+        private String[] excelColumn;
         private String name;
+        private int width;
+
+        public Sheet(int width){
+            this.width = width;
+            excelColumn = new String[width];
+            for (int i = 0 ;i <width ; i ++){
+                excelColumn[i] = toExcelColumn(i);
+            }
+        }
+
+        public String[] getExcelColumn() {
+            return excelColumn;
+        }
+
+        public void setExcelColumn(String[] excelColumn) {
+            this.excelColumn = excelColumn;
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        public void setWidth(int width) {
+            this.width = width;
+        }
 
         public String getName() {
             return name;
@@ -136,6 +226,38 @@ public class ExcelUtils {
             this.allLine = allLine;
         }
 
+        public Sheet subSheet(String[] columns){
+            Sheet sheet = new Sheet(columns.length);
+
+            List<Line> newAllLines = new ArrayList<>();
+            for (Line line : allLine){
+                Line newLine = line.subLine(columns);
+                newAllLines.add(newLine);
+            }
+            sheet.setAllLine(newAllLines);
+
+            if (title != null){
+                Line newTitle = title.subLine(columns);
+                sheet.setTitle(newTitle);
+            }
+
+
+            if (data != null){
+                List<Line> newData = new ArrayList<>();
+                for (Line line : data){
+                    newData.add(line.subLine(columns));
+                }
+
+                sheet.setData(newData);
+            }
+
+            return sheet;
+        }
+
+        public void resolveTitle(int titleLine){
+            resolveTitle(titleLine, titleLine + 1);
+        }
+
         public void resolveTitle(int titleLine, int dataStart){
             title = allLine.get(titleLine);
             for (int i = dataStart ;i < allLine.size() ; i ++){
@@ -158,13 +280,18 @@ public class ExcelUtils {
             }
         }
 
-        public Sheet sum(String primaryCell, String[] sumCell, String outPutCell){
-            return null;
+        public Sheet doing(Operation operation){
+            return operation.doing(this);
         }
     }
 
     public class Line{
         private String cells[];
+
+        public Line(String[] cells){
+            this.cells = cells;
+        }
+
         public Line(int length, Cell[] data){
             cells = new String[length];
             for (int i = 0; i < data.length ; i ++){
@@ -176,12 +303,84 @@ public class ExcelUtils {
             }
         }
 
+        public Line(String[] columns, Cell[] data){
+            cells = new String[columns.length];
+
+            for (int i = 0; i < columns.length ; i ++){
+                String column = columns[i];
+                cells[i] = data[toIndex(column)].getContents();
+            }
+        }
+
+        public Line subLine(String[] columns){
+            String[] subCells = new String[columns.length];
+
+            int subCellIndex = 0;
+            for (String column : columns){
+                int index = toIndex(column);
+                if (index > cells.length - 1){
+                    continue;
+                }
+                subCells[subCellIndex] = cells[toIndex(column)];
+                subCellIndex ++;
+            }
+
+            return new Line(subCells);
+        }
+
+
         public String[] getCells() {
             return cells;
         }
+
+        public String get(String index){
+            return cells[toIndex(index)];
+        }
+
+        public String get(int index){
+            return cells[index];
+        }
+    }
+
+    public interface Operation{
+        Sheet doing(Sheet sheet);
     }
 
     public static void main(String[] args) {
-        System.out.println(toIndex("AZ"));
+        String result = toExcelColumn(toIndex("AAA"));
+
+
+        Excel excel = ExcelUtils.build().read(new File("/Users/liuran/Desktop/temp/普通住院和重大疾病数据.xls"));
+        for (Sheet sheet : excel.getSheets()){
+            //分离标题
+            sheet.resolveTitle(0);
+
+            String[] columns = {"C","A","I","J","K","L","M","N","O","P"};
+            Sheet subSheet = null;
+            if (sheet.getName().equals("2015")){
+                subSheet = sheet.subSheet(columns);
+                subSheet.doing(new Operation() {
+                    @Override
+                    public Sheet doing(Sheet sheet) {
+                        Map<String, List<Line>> map = new HashMap<>();
+                        for (Line line : sheet.getData()){
+                            if (map.containsKey(line.get("A"))){
+                                List<Line> list = map.get(line.get("A"));
+                                list.add(line);
+                            } else {
+                                List<Line> list = new ArrayList<>();
+                                map.put(line.get("A"), list);
+                                list.add(line);
+                            }
+                        }
+                     return sheet;
+                    }
+                });
+            }
+
+            System.out.println("");
+        }
+        return;
     }
+
 }
