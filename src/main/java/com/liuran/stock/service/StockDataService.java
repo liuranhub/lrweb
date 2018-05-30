@@ -1,6 +1,6 @@
 package com.liuran.stock.service;
 
-import com.liuran.stock.StockUtils;
+import com.liuran.stock.util.StockUtils;
 import com.liuran.stock.domain.StockDataDomain;
 import com.liuran.stock.repository.StockDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;

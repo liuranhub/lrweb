@@ -1,4 +1,4 @@
-package com.liuran.stock;
+package com.liuran.stock.util;
 
 import com.liuran.stock.domain.StockDataDomain;
 import com.liuran.utils.StringUtils;
