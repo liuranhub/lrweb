@@ -609,4 +609,9 @@ public class HttpClientHelper {
         return new String(resutlBytes, charset);
     }
 
+    public static void main(String[] args) {
+        String result = sendGet("http://hq.sinajs.cn/list=sz000938,sh601006,sh601006", null, "gbk");
+        return;
+    }
+
 }

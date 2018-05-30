@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StockDataRepository extends JpaRepository<StockDataDomain, String>{
+    public StockDataDomain findByTimeAndStockCode(long time, String code);
 }

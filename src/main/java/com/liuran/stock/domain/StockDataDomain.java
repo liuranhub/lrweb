@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "stock_stock_data")
@@ -16,7 +19,7 @@ public class StockDataDomain {
     private String stockCode;
     //创建时间
     @Column(name = "create_time")
-    private String createTime;
+    private Long createTime;
     //今日开盘价
     @Column(name = "opening_price")
     private Double openingPrice;
@@ -43,7 +46,7 @@ public class StockDataDomain {
     private Long transactionNumber;
     //成交金额
     @Column(name = "transaction_amount")
-    private Long transactionAmount;
+    private Double transactionAmount;
     //买一数
     @Column(name = "buy_one")
     private Long buyOne;
@@ -93,6 +96,55 @@ public class StockDataDomain {
     //原始数据
     private String data;
 
+    public StockDataDomain(){
+
+    }
+
+    public StockDataDomain(String code, String data){
+        String[] values = data.split(",");
+        stockCode = code;
+        openingPrice = new Double(values[1]);
+        yesterdayClosingPrice = new Double(values[2]);
+        currentPrice = new Double(values[3]);
+        todayMaxPrice = new Double(values[4]);
+        todayMinPrice = new Double(values[5]);
+        biddingPrice = new Double(values[6]);
+        auctionPrice = new Double(values[7]);
+        transactionNumber = new Long(values[8]);
+        transactionAmount = new Double(values[9]);
+        buyOne = new Long(values[10]);
+        buyOnePrice = new Double(values[11]);
+        buyTwo = new Long(values[12]);
+        buyTwoPrice = new Double(values[13]);
+        buyThree = new Long(values[14]);
+        buyThreePrice = new Double(values[15]);
+        buyFour = new Long(values[16]);
+        buyFourPrice = new Double(values[17]);
+        buyFive = new Long(values[18]);
+        buyFivePrice = new Double(values[19]);
+
+        sellOne = new Long(values[20]);
+        sellOnePrice = new Double(values[21]);
+        sellTwo = new Long(values[22]);
+        sellTwoPrice = new Double(values[23]);
+        sellThree = new Long(values[24]);
+        sellThreePrice = new Double(values[25]);
+        sellFour = new Long(values[26]);
+        sellFourPrice = new Double(values[27]);
+        sellFive = new Long(values[28]);
+        sellFivePrice = new Double(values[29]);
+
+        String dateStr = values[30] + " " + values[31];
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+        try {
+            Date obj = dateFormat.parse(dateStr);
+            time = obj.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.data = data;
+    }
+
     public String getId() {
         return id;
     }
@@ -109,11 +161,11 @@ public class StockDataDomain {
         this.stockCode = stockCode;
     }
 
-    public String getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
@@ -181,11 +233,11 @@ public class StockDataDomain {
         this.transactionNumber = transactionNumber;
     }
 
-    public Long getTransactionAmount() {
+    public Double getTransactionAmount() {
         return transactionAmount;
     }
 
-    public void setTransactionAmount(Long transactionAmount) {
+    public void setTransactionAmount(Double transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
 
