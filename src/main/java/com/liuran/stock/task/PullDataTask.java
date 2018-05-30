@@ -10,12 +10,12 @@ import java.util.Set;
 
 @Component
 public class PullDataTask {
-    private static final String cron = "0 0/5 * * * ?";
+    private static final String cron = "0 0/1 * * * ?";
 
     @Autowired
     private StockDataService service;
 
-    @Scheduled(cron = cron)
+    @Scheduled(fixedDelay = 60 * 1000)
     public void schedule(){
         Set<String> codes = new HashSet<>();
         codes.add("sz000938");
