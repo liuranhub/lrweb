@@ -2,15 +2,18 @@ package com.liuran.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * @deprecated 使用外部Tomcat的时候需要配置该类,使用SpringBoot不需要配置该类
+ * */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { RootConfig.class };
+        return new Class<?>[] { };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] { WebConfig.class, MySqlConfig.class };
+        return new Class<?>[] {WebConfig.class};
     }
 
     @Override
