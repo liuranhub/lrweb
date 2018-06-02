@@ -10,7 +10,7 @@
 二.Spring Boot配置
     2.1.创建WebConfig类,并实现方法(共同点一,和普通零配置完全一致)
       public class WebConfig extends WebMvcConfigurationSupport
-    2.2.实现SpringBootApplication 中 main 方法
+    2.2.实现 Application 中 main 方法
     2.3.其它配置(共同点二)
     2.4.maven 打包类型为 jar 包
 
@@ -19,4 +19,4 @@
     2.maven依赖可以继续使用SpringBoot的依赖库(可以剔除内部Tomcat,不剔除不会影响正常使用)
 
 四.总结
-    两种配置的主要区别在"SpringBootApplication类和WebApplicationInitializer类实现".
+    两种配置的主要区别在"Application类和WebApplicationInitializer类实现".
