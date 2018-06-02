@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="lrweb:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="lrweb.war">
+    <root id="archive" name="lrweb-0.0.1-SNAPSHOT.war">
       <element id="artifact" artifact-name="lrweb:war exploded" />
     </root>
   </artifact>

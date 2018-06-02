@@ -27,7 +27,7 @@ public class StockUtils {
         for (int i = 0; i < dataArray.length; i ++){
             String line = dataArray[i];
             String[] lineArray  = line.split("=");
-            String code = lineArray[0].substring(lineArray[0].indexOf("hq_str_"));
+            String code = lineArray[0].substring(lineArray[0].indexOf("hq_str_") + "hq_str_".length());
             String value = lineArray[1].replaceAll("\"", "");
             result.add(new StockDataDomain(code.toLowerCase(), value));
         }

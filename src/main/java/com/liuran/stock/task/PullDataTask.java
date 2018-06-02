@@ -15,11 +15,19 @@ public class PullDataTask {
     @Autowired
     private StockDataService service;
 
-    @Scheduled(fixedDelay = 60 * 1000)
+    @Scheduled(cron = cron)
     public void schedule(){
         Set<String> codes = new HashSet<>();
         codes.add("sz000938");
         codes.add("sh601006");
-        service.pull(codes);
+        codes.add("sh201000");
+        codes.add("sh201001");
+        codes.add("sh510610");
+        codes.add("sh510610");
+        codes.add("sh511290");
+        codes.add("sh600601");
+        synchronized (PullDataTask.class){
+            service.pull(codes);
+        }
     }
 }

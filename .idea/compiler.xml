@@ -10,7 +10,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="lrweb" target="1.7" />
+      <module name="demo" target="1.5" />
+      <module name="lrweb" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

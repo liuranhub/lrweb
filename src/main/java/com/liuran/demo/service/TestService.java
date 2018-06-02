@@ -3,6 +3,8 @@ package com.liuran.demo.service;
 import com.liuran.demo.domain.TestDemo;
 import com.liuran.demo.repository.TestDemoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -24,6 +26,19 @@ public class TestService {
     }
 
     public TestDemo get(String id){
-        return repository.findOne(id);
+//        Example<TestDemo> example = new Example<TestDemo>() {
+//            @Override
+//            public TestDemo getProbe() {
+//                return null;
+//            }
+//
+//            @Override
+//            public ExampleMatcher getMatcher() {
+//                return null;
+//            }
+//        }
+//        return repository.findOne(id);
+
+        return null;
     }
 }
