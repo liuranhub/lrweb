@@ -15,7 +15,7 @@ TestController {
     private TestService service;
 
     @RequestMapping(value = "", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE } )
-    public TestDemo test(@RequestBody TestDemo demo){
+    public TestDemo create(@RequestBody TestDemo demo){
         return service.testService(demo);
     }
 

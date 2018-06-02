@@ -8,6 +8,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,19 +27,6 @@ public class TestService {
     }
 
     public TestDemo get(String id){
-//        Example<TestDemo> example = new Example<TestDemo>() {
-//            @Override
-//            public TestDemo getProbe() {
-//                return null;
-//            }
-//
-//            @Override
-//            public ExampleMatcher getMatcher() {
-//                return null;
-//            }
-//        }
-//        return repository.findOne(id);
-
-        return null;
+        return repository.findById(id).orElse(new TestDemo());
     }
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Component
 public class PullDataTask {
-    private static final String cron = "0 0/1 * * * ?";
+    private static final String cron = "0 0/1 9-16 * * ?";
 
     @Autowired
     private StockDataService service;
